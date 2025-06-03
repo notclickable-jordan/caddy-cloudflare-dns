@@ -1,8 +1,8 @@
-FROM caddy:builder AS builder
+FROM caddy:builder-alpine AS builder
 
-RUN caddy-builder \
-    github.com/notclickable-jordan/cloudflare-dns-provider
+RUN xcaddy build \
+    --with github.com/caddy-dns/cloudflare
 
-FROM caddy:latest
+FROM caddy:alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
